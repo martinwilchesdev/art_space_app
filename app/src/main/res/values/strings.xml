@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">ArtSpace</string>
+    <string name="button_previous">Previous</string>
+    <string name="button_next">Next</string>
+    <string name="title1">Salida del sol a través de la niebla</string>
+    <string name="title2">La mujer en el piano</string>
+    <string name="title3">Mercado a la luz de las velas</string>
+    <string name="artist1">Fitz Henry Lane (1852)</string>
+    <string name="artist2">Pierre Auguste Renoir (1875-1876)</string>
+    <string name="artist3">Petrus Van Schendel (1869)</string>
+</resources>
