@@ -1,6 +1,7 @@
 package com.example.artspace
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.annotation.DrawableRes
@@ -70,8 +71,58 @@ fun ArtSpace(modifier: Modifier) {
         mutableIntStateOf(R.string.artist1)
     }
 
-    fun changeImage() {
-        println((1..2).random())
+    var currentArt by remember {
+        mutableIntStateOf(1)
+    }
+
+    fun nextImage() {
+        when (currentArt) {
+            1 -> {
+                artImage = R.drawable.image2
+                artArtist = R.string.artist2
+                artTitle = R.string.title2
+                currentArt = 2
+            }
+
+            2 -> {
+                artImage = R.drawable.image3
+                artArtist = R.string.artist3
+                artTitle = R.string.title3
+                currentArt = 3
+            }
+
+            else -> {
+                artImage = R.drawable.image1
+                artArtist = R.string.artist1
+                artTitle = R.string.title1
+                currentArt = 1
+            }
+        }
+    }
+
+    fun previousImage() {
+        when (currentArt) {
+            1 -> {
+                artImage = R.drawable.image3
+                artArtist = R.string.artist3
+                artTitle = R.string.title3
+                currentArt = 3
+            }
+
+            2 -> {
+                artImage = R.drawable.image1
+                artArtist = R.string.artist1
+                artTitle = R.string.title1
+                currentArt = 1
+            }
+
+            else -> {
+                artImage = R.drawable.image2
+                artArtist = R.string.artist2
+                artTitle = R.string.title2
+                currentArt = 2
+            }
+        }
     }
 
     Column(
@@ -89,18 +140,18 @@ fun ArtSpace(modifier: Modifier) {
                 .padding(horizontal = 32.dp),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            SelectImageButton(
+            PreviousImage(
                 R.string.button_previous,
-                changeImage = {
-                    changeImage()
+                previousImage = {
+                    previousImage()
                 },
                 modifier = Modifier.weight(1f)
             )
             Spacer(modifier.width(32.dp))
-            SelectImageButton(
+            NextImage(
                 R.string.button_next,
-                changeImage = {
-                    changeImage()
+                nextImage = {
+                    nextImage()
                 },
                 modifier = Modifier.weight(1f)
             )
@@ -155,8 +206,15 @@ fun ArtInfo(@StringRes title: Int, @StringRes artist: Int, modifier: Modifier) {
 }
 
 @Composable
-fun SelectImageButton(@StringRes buttonLabel: Int, changeImage: (Int) -> Unit, modifier: Modifier) {
-    Button(onClick = { /*TODO*/ }, modifier) {
+fun PreviousImage(@StringRes buttonLabel: Int, previousImage: () -> Unit, modifier: Modifier) {
+    Button(onClick = { previousImage() }, modifier) {
+        Text(text = stringResource(id = buttonLabel))
+    }
+}
+
+@Composable
+fun NextImage(@StringRes buttonLabel: Int, nextImage: () -> Unit, modifier: Modifier) {
+    Button(onClick = { nextImage() }, modifier) {
         Text(text = stringResource(id = buttonLabel))
     }
 }
